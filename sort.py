@@ -238,7 +238,8 @@ def parse_args():
 
 if __name__ == '__main__':
   # all train
-  sequences = ['TUD-Campus']
+  #sequences = ['TUD-Campus']
+  sequences = ['xyz']
   args = parse_args()
   display = args.display
   phase = 'train'
@@ -283,11 +284,15 @@ if __name__ == '__main__':
           if(display):
             d = d.astype(np.int32)
             ax1.add_patch(patches.Rectangle((d[0],d[1]),d[2]-d[0],d[3]-d[1],fill=False,lw=3,ec=colours[d[4]%32,:]))
+            tmpx = d[0]
+            tmpy = d[1]
+            plt.text(tmpx, tmpy, "%d"%d[4])  
             ax1.set_adjustable('box-forced')
 
         if(display):
           fig.canvas.flush_events()
           plt.draw()
+	  plt.savefig('./seq/%d.jpg'%frame)
           ax1.cla()
 
   print("Total Tracking took: %.3f for %d frames or %.1f FPS"%(total_time,total_frames,total_frames/total_time))
